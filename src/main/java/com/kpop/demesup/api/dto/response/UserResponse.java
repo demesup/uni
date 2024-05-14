@@ -34,4 +34,15 @@ public class UserResponse {
         .token(token)
         .build();
   }
+
+  public static UserResponse fromEntity(User user) {
+    return UserResponse.builder()
+        .id(user.getId())
+        .email(user.getEmail())
+        .firstName(user.getFirstName())
+        .lastName(user.getLastName())
+        .phone(user.getPhone())
+        .authorities(user.getAuthoritiesString())
+        .build();
+  }
 }

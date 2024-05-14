@@ -26,11 +26,9 @@ import org.springframework.web.bind.annotation.*;
 public class AuthenticationController {
 
   AuthenticationManager authenticationManager;
-  @Autowired
-  UserService userService;
   JwtVerifier tokenService;
 
-  @PutMapping
+  @PostMapping
   public AuthenticationResponse auth(
       @RequestBody @Valid AuthenticationRequest authenticationRequest) throws AuthenticationException {
     tokenService.verifyUser(authenticationRequest.getEmail());
@@ -44,22 +42,6 @@ public class AuthenticationController {
 
     String token = tokenService.generateToken(authenticationRequest.getEmail());
     return new AuthenticationResponse(token);
-  }
-
-  @PostMapping
-  public UserResponse create(@Valid @RequestBody UserRequest request) {
-    String email = request.getEmail();
-    if (userService.findIdByEmail(email).isPresent()) {
-      throw new AlreadyExistsException("User", email);
-    }
-    String phone = request.getPhone();
-    if (userService.findIdByPhone(phone).isPresent()) {
-      throw new AlreadyExistsException("User", phone);
-    }
-    User user = userService.create(request);
-//    log.info("Created new company {}", request.getName());
-    String token = tokenService.generateToken(request.getEmail());
-    return UserResponse.fromEntity(user, token);
   }
 
 }
