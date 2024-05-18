@@ -1,0 +1,36 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/demesup
+    password: test
+    username: postgres
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+    enabled: true
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+      open-in-view: false
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+
+server:
+  port: 8888
+
+logging:
+  level:
+    org:
+      springframework:
+        web: INFO
+    hibernate: INFO
+    demesup: INFO
+    liquibase: INFO
+
+
+springdoc:
+  swagger-ui:
+    enabled: true

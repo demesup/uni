@@ -40,3 +40,16 @@ databaseChangeLog:
                   name: updated_at
                   type: TIMESTAMP WITHOUT TIME ZONE
             tableName: users
+  - changeSet:
+      id: init-2
+      author: demesup
+      changes:
+        - createSequence:
+            cacheSize: 1
+            cycle: false
+            dataType: bigint
+            incrementBy: 1
+            maxValue: 9223372036854775807
+            minValue: 1
+            sequenceName: users_seq
+            startValue: 1

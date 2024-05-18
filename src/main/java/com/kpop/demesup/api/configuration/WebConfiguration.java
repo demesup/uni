@@ -25,7 +25,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import java.io.IOException;
 
 import static jakarta.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
-
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -66,7 +65,7 @@ public class WebConfiguration {
         .csrf().disable().authorizeHttpRequests(auth ->
           auth.requestMatchers("swagger-ui/**", "swagger-ui**", "/v3/api-docs/**", "/v3/api-docs**").permitAll()
               .requestMatchers("/auth", "/login").permitAll()
-              .requestMatchers(HttpMethod.POST, "/api/v1/companies").permitAll()
+              .requestMatchers(HttpMethod.POST, "/users").permitAll()
               .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
               .requestMatchers("/**").authenticated()
         );
@@ -82,5 +81,4 @@ public class WebConfiguration {
     res.setStatus(SC_UNAUTHORIZED);
     res.getWriter().write(objectMapper.writeValueAsString(UNAUTHORIZED_RESPONSE));
   }
-
 }

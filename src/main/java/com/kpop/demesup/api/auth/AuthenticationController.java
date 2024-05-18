@@ -1,23 +1,22 @@
 package com.kpop.demesup.api.auth;
 
 import com.kpop.demesup.api.dto.request.AuthenticationRequest;
-import com.kpop.demesup.api.dto.request.UserRequest;
 import com.kpop.demesup.api.dto.response.AuthenticationResponse;
-import com.kpop.demesup.api.dto.response.UserResponse;
-import com.kpop.demesup.domain.User;
-import com.kpop.demesup.exception.AlreadyExistsException;
-import com.kpop.demesup.service.UserService;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
@@ -25,12 +24,14 @@ import org.springframework.web.bind.annotation.*;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AuthenticationController {
 
+  private static final Logger log = LoggerFactory.getLogger(AuthenticationController.class);
   AuthenticationManager authenticationManager;
   JwtVerifier tokenService;
 
   @PostMapping
   public AuthenticationResponse auth(
       @RequestBody @Valid AuthenticationRequest authenticationRequest) throws AuthenticationException {
+    System.out.println(authenticationRequest);
     tokenService.verifyUser(authenticationRequest.getEmail());
     Authentication authentication = authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(

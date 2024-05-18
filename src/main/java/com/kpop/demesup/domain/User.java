@@ -47,9 +47,6 @@ public class User implements UserDetails {
   String email;
 
   @Column
-  Date lastPasswordReset;
-
-  @Column
   @Enumerated(EnumType.STRING)
   UserAuthority authorities;
 

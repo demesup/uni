@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
 @Data
-@SuperBuilder
+@Builder
 public class AuthenticationRequest {
 
   @NotBlank

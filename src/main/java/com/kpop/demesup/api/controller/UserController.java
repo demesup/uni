@@ -46,10 +46,8 @@ public class UserController {
         .orElseThrow(() -> new NotFoundException("User", id));
   }
 
-  @Secured("ROLE_ADMIN")
   @PostMapping
-  public UserResponse create(@Valid @RequestBody UserRequest request,
-                             @AuthenticationPrincipal User user) {
+  public UserResponse create(@Valid @RequestBody UserRequest request) {
     log.info("Received user registration request {}", request);
     String email = request.getEmail();
     if (userService.findIdByEmail(email).isPresent()) {
