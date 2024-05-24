@@ -20,7 +20,7 @@ import static lombok.AccessLevel.PRIVATE;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "users")
+@Table(name = "groups")
 @FieldDefaults(level = PRIVATE)
 public class Group {
 
@@ -30,6 +30,7 @@ public class Group {
   @SequenceGenerator(name = "groups_seq", sequenceName = "groups_seq", allocationSize = 1)
   Long id;
 
+  @Column
   String code;
 
   @ManyToOne

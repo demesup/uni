@@ -21,7 +21,7 @@ import static lombok.AccessLevel.PRIVATE;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "users")
+@Table(name = "years")
 @FieldDefaults(level = PRIVATE)
 public class Year {
   @Id
@@ -44,6 +44,7 @@ public class Year {
   Faculty faculty;
 
   @Column
+  @Enumerated(EnumType.STRING)
   YearCode year;
 
 

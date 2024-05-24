@@ -15,7 +15,7 @@ import static lombok.AccessLevel.PRIVATE;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "users")
+@Table(name = "professors")
 @FieldDefaults(level = PRIVATE)
 public class Professor {
   @Id
@@ -40,6 +40,8 @@ public class Professor {
   @ManyToOne
   Faculty faculty;
 
+  @Column
+  String subject;
 
   @Column
   @Builder.Default
@@ -52,6 +54,7 @@ public class Professor {
         .phone(request.getPhone())
         .description(request.getDescription())
         .faculty(faculty)
+        .subject(request.getSubject())
         .build();
   }
 
@@ -60,6 +63,7 @@ public class Professor {
     email = request.getEmail();
     phone = request.getPhone();
     description = request.getDescription();
+    subject = request.getSubject();
     this.faculty = faculty;
   }
 

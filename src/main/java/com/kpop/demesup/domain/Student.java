@@ -15,7 +15,7 @@ import static lombok.AccessLevel.PRIVATE;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "users")
+@Table(name = "students")
 @FieldDefaults(level = PRIVATE)
 public class Student {
   @Id

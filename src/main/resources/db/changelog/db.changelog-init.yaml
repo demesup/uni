@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: init-1
+      id: users-table
       author: demesup
       changes:
         - createTable:
@@ -41,7 +41,7 @@ databaseChangeLog:
                   type: TIMESTAMP WITHOUT TIME ZONE
             tableName: users
   - changeSet:
-      id: init-2
+      id: users-seq
       author: demesup
       changes:
         - createSequence:
@@ -53,3 +53,468 @@ databaseChangeLog:
             minValue: 1
             sequenceName: users_seq
             startValue: 1
+  - changeSet:
+      id: faculty-table
+      author: demesup
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: faculties_pkey
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: full_name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: short_name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: active
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+            tableName: faculties
+
+  - changeSet:
+      id: faculty-seq
+      author: demesup
+      changes:
+        - createSequence:
+            sequenceName: faculties_seq
+            startValue: 1
+            incrementBy: 1
+            minValue: 1
+            maxValue: 9223372036854775807
+  - changeSet:
+      id: prof-table
+      author: demesup
+      changes:
+        - createTable:
+            tableName: professors
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: professors_pkey
+              - column:
+                  name: subject
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: phone
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: faculty_id
+                  type: BIGINT
+                  constraints:
+                    nullable: true
+              - column:
+                  name: active
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: prof-seq
+      author: demesup
+      changes:
+        - createSequence:
+            sequenceName: professors_seq
+            startValue: 1
+            incrementBy: 1
+            minValue: 1
+            maxValue: 9223372036854775807
+            cycle: false
+            cacheSize: 1
+
+
+  - changeSet:
+      id: years-table
+      author: demesup
+      changes:
+        - createTable:
+            tableName: years
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: years_pkey
+              - column:
+                  name: faculty_id
+                  type: BIGINT
+                  constraints:
+                    nullable: true
+              - column:
+                  name: year
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: active
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: years-seq
+      author: demesup
+      changes:
+        - createSequence:
+            sequenceName: years_seq
+            startValue: 1
+            incrementBy: 1
+            minValue: 1
+            maxValue: 9223372036854775807
+  - changeSet:
+      id: offices-table
+      author: demesup
+      changes:
+        - createTable:
+            tableName: offices
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: offices_pkey
+              - column:
+                  name: faculty_id
+                  type: BIGINT
+                  constraints:
+                    nullable: true
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: phone
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: active
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: offices-seq
+      author: demesup
+      changes:
+        - createSequence:
+            sequenceName: offices_seq
+            startValue: 1
+            incrementBy: 1
+            minValue: 1
+            maxValue: 9223372036854775807
+  - changeSet:
+      id: groups-table
+      author: demesup
+      changes:
+        - createTable:
+            tableName: groups
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: groups_pkey
+              - column:
+                  name: code
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: faculty_id
+                  type: BIGINT
+                  constraints:
+                    nullable: true
+              - column:
+                  name: year_id
+                  type: BIGINT
+                  constraints:
+                    nullable: true
+              - column:
+                  name: head_id
+                  type: BIGINT
+                  constraints:
+                    nullable: true
+              - column:
+                  name: advisor_id
+                  type: BIGINT
+                  constraints:
+                    nullable: true
+              - column:
+                  name: active
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: groups-seq
+      author: demesup
+      changes:
+        - createSequence:
+            sequenceName: groups_seq
+            startValue: 1
+            incrementBy: 1
+            minValue: 1
+            maxValue: 9223372036854775807
+
+  - changeSet:
+      id: students-table
+      author: demesup
+      changes:
+        - createTable:
+            tableName: students
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: students_pkey
+              - column:
+                  name: active
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: group_id
+                  type: BIGINT
+                  constraints:
+                    nullable: true
+              - column:
+                  name: first_name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: last_name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: uni_email
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: phone
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true
+
+  - changeSet:
+      id: students-seq
+      author: demesup
+      changes:
+        - createSequence:
+            sequenceName: students_seq
+            startValue: 1
+            incrementBy: 1
+            minValue: 1
+            maxValue: 9223372036854775807
+
+
+  - changeSet:
+      id: items-table
+      author: demesup
+      changes:
+        - createTable:
+            tableName: items
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: items_pkey
+              - column:
+                  name: active
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: duration
+                  type: INTEGER
+                  constraints:
+                    nullable: true
+              - column:
+                  name: day
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: body
+                  type: JSONB
+                  constraints:
+                    nullable: true
+              - column:
+                  name: hour
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: description
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: note
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: frequency
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true
+
+  - changeSet:
+      id: items-seq
+      author: demesup
+      changes:
+        - createSequence:
+            sequenceName: items_seq
+            startValue: 1
+            incrementBy: 1
+            minValue: 1
+            maxValue: 9223372036854775807
+
+  - changeSet:
+      id: prof-fk-fac
+      author: demesup
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: professors
+            baseColumnNames: faculty_id
+            constraintName: fk_professors_faculty
+            referencedTableName: faculties
+            referencedColumnNames: id
+  - changeSet:
+      id: students-fk-group
+      author: demesup
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: students
+            baseColumnNames: group_id
+            constraintName: fk_students_group
+            referencedTableName: groups
+            referencedColumnNames: id
+
+  - changeSet:
+      id: groups-fk-advisor
+      author: demesup
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: groups
+            baseColumnNames: advisor_id
+            constraintName: fk_groups_advisor
+            referencedTableName: professors
+            referencedColumnNames: id
+
+  - changeSet:
+      id: years-fk-fac
+      author: demesup
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: years
+            baseColumnNames: faculty_id
+            constraintName: fk_years_faculty
+            referencedTableName: faculties
+            referencedColumnNames: id
+
+  - changeSet:
+      id: offices-fk-fac
+      author: demesup
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: offices
+            baseColumnNames: faculty_id
+            constraintName: fk_offices_faculty
+            referencedTableName: faculties
+            referencedColumnNames: id
+
+  - changeSet:
+      id: groups-fk-fac
+      author: demesup
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: groups
+            baseColumnNames: faculty_id
+            constraintName: fk_groups_faculty
+            referencedTableName: faculties
+            referencedColumnNames: id
+
+  - changeSet:
+      id: groups-fk-year
+      author: demesup
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: groups
+            baseColumnNames: year_id
+            constraintName: fk_groups_year
+            referencedTableName: years
+            referencedColumnNames: id
+
+  - changeSet:
+      id: groups-fk-head
+      author: demesup
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: groups
+            baseColumnNames: head_id
+            constraintName: fk_groups_head
+            referencedTableName: students
+            referencedColumnNames: id

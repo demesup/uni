@@ -19,13 +19,13 @@ import static lombok.AccessLevel.PRIVATE;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "users")
+@Table(name = "faculties")
 @FieldDefaults(level = PRIVATE)
 public class Faculty {
   @Id
   @Column(name = "id")
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_seq")
-  @SequenceGenerator(name = "users_seq", sequenceName = "users_seq", allocationSize = 1)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "faculties_seq")
+  @SequenceGenerator(name = "faculties_seq", sequenceName = "faculties_seq", allocationSize = 1)
   Long id;
 
   @Column

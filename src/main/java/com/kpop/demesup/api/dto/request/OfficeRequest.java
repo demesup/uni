@@ -1,6 +1,5 @@
 package com.kpop.demesup.api.dto.request;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
@@ -16,23 +15,16 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor
 @Builder
 @With
-public class ProfessorRequest {
+public class OfficeRequest {
 
   @NotEmpty
   Long facultyId;
 
-  @Email
+  @NotEmpty
   String email;
 
   @Pattern(regexp = "\\+?\\d{1,3}[\\s\\-]?\\(?\\d{1,3}\\)?([\\s\\-]?\\d){7}", message = "Invalid phone number")
   String phone;
 
-  @NotEmpty
-  String name;
-
-  String description;
-
-  @NotEmpty
-  String subject;
 
 }
