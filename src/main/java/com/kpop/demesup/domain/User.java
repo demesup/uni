@@ -12,7 +12,8 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Collection;
+import java.util.Objects;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -110,7 +111,7 @@ public class User implements UserDetails {
     return AuthorityUtils.commaSeparatedStringToAuthorityList(authorities.toString());
   }
 
-  public boolean isOwner() {
+  public boolean isEditor() {
     return authorities.equals(UserAuthority.ROLE_ADMIN);
   }
 

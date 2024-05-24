@@ -86,9 +86,6 @@ public class UserController {
     User currentUser = userService.findById(id)
         .orElseThrow(() -> new NotFoundException("User", id));
     log.info("Deleted user {}", currentUser.getEmail());
-//    if (currentUser.isOwner() && userService.findAllOwners().size() == 1) {
-//      throw new UserCannotBeDeletedException(user.getEmail());
-//    }
     userService.delete(currentUser);
   }
 }

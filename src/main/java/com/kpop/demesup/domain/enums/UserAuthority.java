@@ -4,5 +4,6 @@ public enum UserAuthority {
   ROLE_ROOT,
   ROLE_ADMIN,
   ROLE_USER,
-  ROLE_CLIENT
+  ROLE_STUDENT,
+  ROLE_PROFESSOR
 }
