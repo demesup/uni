@@ -1,8 +1,8 @@
 package com.demesup.api.controller;
 
 import com.demesup.api.dto.request.ProfessorRequest;
-import com.demesup.api.dto.response.ProfessorDetailsResponse;
-import com.demesup.api.dto.response.ProfessorResponse;
+import com.demesup.api.dto.response.prof.ProfessorDetailsResponse;
+import com.demesup.api.dto.response.prof.ProfessorResponse;
 import com.demesup.domain.Faculty;
 import com.demesup.domain.Professor;
 import com.demesup.domain.User;

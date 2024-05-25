@@ -1,5 +1,6 @@
-package com.demesup.api.dto.response;
+package com.demesup.api.dto.response.fac;
 
+import com.demesup.api.dto.response.prof.ProfessorResponse;
 import com.demesup.domain.Faculty;
 import lombok.AccessLevel;
 import lombok.Data;

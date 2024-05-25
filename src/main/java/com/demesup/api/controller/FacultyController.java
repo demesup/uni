@@ -1,6 +1,6 @@
 package com.demesup.api.controller;
 
-import com.demesup.api.dto.response.FacultyDetailsResponse;
+import com.demesup.api.dto.response.fac.FacultyDetailsResponse;
 import com.demesup.domain.User;
 import com.demesup.service.FacultyService;
 import lombok.RequiredArgsConstructor;

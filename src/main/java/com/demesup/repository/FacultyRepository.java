@@ -14,6 +14,6 @@ public interface FacultyRepository extends CrudRepository<Faculty, Long> {
   List<Faculty> findAll();
 
   @Override
-  @Query("SELECT f FROM Faculty f LEFT JOIN FETCH f.dean d WHERE f.active = true")
+  @Query("SELECT f FROM Faculty f LEFT JOIN FETCH f.dean d WHERE f.id = :id AND f.active = true")
   Optional<Faculty> findById(Long id);
 }

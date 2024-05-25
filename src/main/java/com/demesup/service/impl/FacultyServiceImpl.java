@@ -22,7 +22,6 @@ import static lombok.AccessLevel.PRIVATE;
 public class FacultyServiceImpl implements FacultyService {
 
   FacultyRepository repository;
-  private final FacultyRepository facultyRepository;
 
   @Override
   public List<Faculty> findAll() {
@@ -58,6 +57,6 @@ public class FacultyServiceImpl implements FacultyService {
 
   @Override
   public List<Professor> findDeans() {
-    return facultyRepository.findAll().stream().map(Faculty::getDean).filter(Objects::nonNull).toList();
+    return repository.findAll().stream().map(Faculty::getDean).filter(Objects::nonNull).toList();
   }
 }
