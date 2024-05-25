@@ -1,6 +1,5 @@
 package com.demesup.domain.items;
 
-import com.demesup.domain.Group;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,9 +19,9 @@ public class Lab extends ItemInfo {
   @JsonProperty
   List<Long> professorIds;
 
-  public static Lab create(Group group, List<Long> professorIds) {
+  public static Lab create(Long groupId, List<Long> professorIds) {
     return Lab.builder()
-        .groupId(group.getId())
+        .groupId(groupId)
         .professorIds(professorIds)
         .build();
   }

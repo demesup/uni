@@ -1,6 +1,5 @@
 package com.demesup.domain.items;
 
-import com.demesup.domain.Group;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,9 +17,9 @@ public class Seminar extends ItemInfo {
   @JsonProperty
   Long assistantId;
 
-  public static Seminar create(Group group, Long assistantId) {
+  public static Seminar create(Long groupId, Long assistantId) {
     return Seminar.builder()
-        .groupId(group.getId())
+        .groupId(groupId)
         .assistantId(assistantId)
         .build();
   }

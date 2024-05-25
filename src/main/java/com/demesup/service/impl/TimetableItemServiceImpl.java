@@ -1,9 +1,13 @@
 package com.demesup.service.impl;
 
+import com.demesup.api.dto.request.CourseRequest;
+import com.demesup.api.dto.request.LabRequest;
+import com.demesup.api.dto.request.SeminarRequest;
 import com.demesup.api.dto.response.item.*;
 import com.demesup.domain.Group;
 import com.demesup.domain.Professor;
 import com.demesup.domain.TimetableItem;
+import com.demesup.domain.Year;
 import com.demesup.domain.enums.Day;
 import com.demesup.domain.items.Course;
 import com.demesup.domain.items.ItemInfo;
@@ -11,6 +15,7 @@ import com.demesup.domain.items.Lab;
 import com.demesup.domain.items.Seminar;
 import com.demesup.exception.NotFoundException;
 import com.demesup.repository.TimetableItemRepository;
+import com.demesup.service.GroupService;
 import com.demesup.service.ProfessorService;
 import com.demesup.service.TimetableItemService;
 import com.demesup.service.YearService;
@@ -18,10 +23,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -32,6 +34,7 @@ public class TimetableItemServiceImpl implements TimetableItemService {
   TimetableItemRepository repository;
   YearService yearService;
   ProfessorService professorService;
+  GroupService groupService;
 
   @Override
   public TimetableResponse getTimetableStructure(Group group) {
@@ -51,6 +54,66 @@ public class TimetableItemServiceImpl implements TimetableItemService {
       }
     }
     return TimetableResponse.fromMap(mapByDay(responses));
+  }
+
+  @Override
+  public Optional<TimetableItemResponse> findById(Long id) {
+    Optional<TimetableItem> item = repository.findById(id);
+    if (item.isEmpty()) {
+      return Optional.empty();
+    }
+    ItemInfo body = item.get().getBody();
+    if (body instanceof Course c) {
+      return Optional.ofNullable(TimetableItemResponse.fromEntity(item.get(), CourseResponse.fromEntity(
+          yearService.findById(c.getYearId()).orElse(null),
+          professorService.findById(c.getProfessorId()).orElse(null)
+      )));
+    }
+
+    if (body instanceof Lab l) {
+      return Optional.ofNullable(TimetableItemResponse.fromEntity(item.get(),
+          LabResponse.fromEntity(
+              groupService.findById(l.getGroupId()).orElse(null),
+              professorService.findAllByIds(l.getProfessorIds())
+          )));
+    }
+
+    if (body instanceof Seminar s) {
+      return Optional.ofNullable(TimetableItemResponse.fromEntity(
+          item.get(),
+          SeminarResponse.fromEntity(
+              groupService.findById(s.getGroupId()).orElse(null),
+              professorService.findById(s.getAssistantId()).orElse(null)
+          )
+      ));
+    }
+    return Optional.empty();
+  }
+
+  @Override
+  public TimetableItemResponse createSeminar(SeminarRequest request, Group group, Professor professor) {
+    Seminar seminar = Seminar.create(request.getGroupId(), request.getAssistantId());
+    TimetableItem item = save(TimetableItem.create(request, seminar));
+    return TimetableItemResponse.fromEntity(item, SeminarResponse.fromEntity(group, professor));
+  }
+
+
+  @Override
+  public TimetableItemResponse createCourse(CourseRequest request, Year year, Professor professor) {
+    Course course = Course.create(request.getYearId(), request.getProfessorId());
+    TimetableItem item = save(TimetableItem.create(request, course));
+    return TimetableItemResponse.fromEntity(item, CourseResponse.fromEntity(year, professor));
+  }
+
+  @Override
+  public TimetableItemResponse createLab(LabRequest request, Group group, List<Professor> professors) {
+    Lab lab = Lab.create(request.getGroupId(), request.getProfessorIds());
+    TimetableItem item = save(TimetableItem.create(request, lab));
+    return TimetableItemResponse.fromEntity(item, LabResponse.fromEntity(group, professors));
+  }
+
+  private TimetableItem save(TimetableItem item) {
+    return repository.save(item);
   }
 
   public static Map<Day, List<TimetableItemResponse>> mapByDay(List<TimetableItemResponse> responses) {

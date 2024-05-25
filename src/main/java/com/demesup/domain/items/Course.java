@@ -1,6 +1,5 @@
 package com.demesup.domain.items;
 
-import com.demesup.domain.Year;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,9 +17,9 @@ public class Course extends ItemInfo {
   @JsonProperty
   Long professorId;
 
-  public static Course create(Year year, Long professorId) {
+  public static Course create(Long yearId, Long professorId) {
     return Course.builder()
-        .yearId(year.getId())
+        .yearId(yearId)
         .professorId(professorId)
         .build();
   }

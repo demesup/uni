@@ -1,5 +1,8 @@
 package com.demesup.domain;
 
+import com.demesup.api.dto.request.CourseRequest;
+import com.demesup.api.dto.request.LabRequest;
+import com.demesup.api.dto.request.SeminarRequest;
 import com.demesup.domain.enums.Day;
 import com.demesup.domain.enums.Frequency;
 import com.demesup.domain.enums.Hour;
@@ -60,5 +63,46 @@ public class TimetableItem {
 
   @Column
   String subject;
+
+  public static TimetableItem create(SeminarRequest request, ItemInfo info) {
+    return TimetableItem.builder()
+        .day(request.getDay())
+        .hour(request.getHour())
+        .description(request.getDescription())
+        .note(request.getNote())
+        .frequency(request.getFrequency())
+        .subject(request.getSubject())
+        .body(info)
+        .build();
+  }
+
+  public static TimetableItem create(LabRequest request, ItemInfo info) {
+    return TimetableItem.builder()
+        .day(request.getDay())
+        .hour(request.getHour())
+        .description(request.getDescription())
+        .note(request.getNote())
+        .frequency(request.getFrequency())
+        .subject(request.getSubject())
+        .body(info)
+        .build();
+  }
+
+  public static TimetableItem create(CourseRequest request, ItemInfo info) {
+    return TimetableItem.builder()
+        .day(request.getDay())
+        .hour(request.getHour())
+        .description(request.getDescription())
+        .note(request.getNote())
+        .frequency(request.getFrequency())
+        .subject(request.getSubject())
+        .body(info)
+        .build();
+  }
+
+  public void delete() {
+    active = false;
+  }
+
 
 }
