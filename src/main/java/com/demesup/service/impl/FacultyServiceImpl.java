@@ -30,6 +30,7 @@ public class FacultyServiceImpl implements FacultyService {
 
   @Override
   public Optional<Faculty> findById(Long id) {
+    if (id == null) return Optional.empty();
     return repository.findById(id);
   }
 

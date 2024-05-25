@@ -16,8 +16,10 @@ public class ProfessorDetailsResponse extends ProfessorResponse {
   FacultyResponse faculty;
 
   public static ProfessorDetailsResponse fromEntity(Professor dean) {
+    if (dean == null) return null;
     return ProfessorDetailsResponse.builder()
         .faculty(FacultyResponse.fromEntity(dean.getFaculty()))
+        .id(dean.getId())
         .email(dean.getEmail())
         .name(dean.getName())
         .phone(dean.getPhone())

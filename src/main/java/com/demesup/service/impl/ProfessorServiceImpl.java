@@ -31,6 +31,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 
   @Override
   public Optional<Professor> findById(Long id) {
+    if (id == null) return Optional.empty();
     return repository.findByIdAndActiveTrue(id);
   }
 

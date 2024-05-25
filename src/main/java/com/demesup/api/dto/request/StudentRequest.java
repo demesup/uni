@@ -30,5 +30,7 @@ public class StudentRequest {
   @Pattern(regexp = "\\+?\\d{1,3}[\\s\\-]?\\(?\\d{1,3}\\)?([\\s\\-]?\\d){7}", message = "Invalid phone number")
   String phone;
 
+  Long groupId;
+
 
 }

@@ -33,10 +33,6 @@ public class Group {
   @Column
   String code;
 
-  @ManyToOne
-  @JoinColumn(name = "faculty_id")
-  Faculty faculty;
-
 
   @ManyToOne
   @JoinColumn(name = "year_id")
@@ -62,10 +58,9 @@ public class Group {
   @Builder.Default
   Boolean active = true;
 
-  public static Group create(GroupRequest request, Faculty faculty, Year year, Student head, Professor advisor) {
+  public static Group create(GroupRequest request, Year year, Student head, Professor advisor) {
     return Group.builder()
         .code(request.getCode())
-        .faculty(faculty)
         .year(year)
         .head(head)
         .advisor(advisor)
@@ -74,10 +69,9 @@ public class Group {
   }
 
 
-  public void update(GroupRequest request, Faculty faculty, Year year, Student head, Professor advisor) {
+  public void update(GroupRequest request, Year year, Student head, Professor advisor) {
     code = request.getCode();
     this.advisor = advisor;
-    this.faculty = faculty;
     this.year = year;
     this.head = head;
   }

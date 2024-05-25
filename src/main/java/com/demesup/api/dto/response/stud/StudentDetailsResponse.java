@@ -19,9 +19,11 @@ public class StudentDetailsResponse extends StudentResponse {
 
 
   public static StudentDetailsResponse fromEntity(Student student) {
+    if (student == null) return null;
     return StudentDetailsResponse.builder()
         .firstName(student.getFirstName())
         .lastName(student.getLastName())
+        .id(student.getId())
         .email(student.getEmail())
         .uniEmail(student.getUniEmail())
         .phone(student.getPhone())

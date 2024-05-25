@@ -12,6 +12,7 @@ import java.util.List;
 @SuperBuilder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class StudentResponse {
+  Long id;
   String firstName;
   String lastName;
   String email;
@@ -19,9 +20,11 @@ public class StudentResponse {
   String phone;
 
   public static StudentResponse fromEntity(Student student) {
+    if (student == null) return null;
     return StudentResponse.builder()
         .firstName(student.getFirstName())
         .lastName(student.getLastName())
+        .id(student.getId())
         .email(student.getEmail())
         .uniEmail(student.getUniEmail())
         .phone(student.getPhone())

@@ -30,6 +30,7 @@ public class YearServiceImpl implements YearService {
 
   @Override
   public Optional<Year> findById(Long id) {
+    if (id == null) return Optional.empty();
     return repository.findById(id);
   }
 

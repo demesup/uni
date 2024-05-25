@@ -20,7 +20,7 @@ import java.util.Collections;
     in = SecuritySchemeIn.HEADER
 )
 @OpenAPIDefinition(
-    info = @Info(title = "Autopartner API", description = "Autopartner API", version = "0.0.1"),
+    info = @Info(title = "UniVerse Demo", description = "Helper", version = "0.0.1"),
     servers = {@Server(url="/", description = "Default Server URL")}
 )
 public class SwaggerConfig {

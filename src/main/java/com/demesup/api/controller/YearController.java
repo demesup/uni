@@ -82,8 +82,8 @@ public class YearController {
   @PutMapping("{id}")
   public YearResponse update(@PathVariable Long id, @RequestBody @Valid YearRequest request,
                              @AuthenticationPrincipal User user) {
-    if (yearService.findIdByYearAndFacultyId(request.getYearCode(), request.getFacultyId())
-        .isPresent()) {
+    Optional<Long> idByYearAndFacultyId = yearService.findIdByYearAndFacultyId(request.getYearCode(), request.getFacultyId());
+    if (idByYearAndFacultyId.isPresent() && !idByYearAndFacultyId.get().equals(id)) {
       throw new AlreadyExistsException("Year", "year code inside faculty");
     }
 

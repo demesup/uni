@@ -10,11 +10,14 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class FacultyResponse {
+  Long id;
   String fullName;
   String shortName;
 
   public static FacultyResponse fromEntity(Faculty faculty) {
+    if (faculty == null) return null;
     return FacultyResponse.builder()
+        .id(faculty.getId())
         .fullName(faculty.getFullName())
         .shortName(faculty.getShortName())
         .build();

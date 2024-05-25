@@ -19,8 +19,10 @@ public class FacultyDetailsResponse extends FacultyResponse {
   List<ProfessorResponse> viceDeans;
 
   public static FacultyDetailsResponse fromEntity(Faculty faculty) {
+    if (faculty == null) return null;
     FacultyDetailsResponse build = FacultyDetailsResponse.builder()
         .fullName(faculty.getFullName())
+        .id(faculty.getId())
         .shortName(faculty.getShortName())
         .viceDeans(faculty.getViceDeans().stream().map(ProfessorResponse::fromEntity).toList())
         .build();

@@ -18,7 +18,9 @@ public class YearGroupDetailsResponse extends YearResponse {
   List<GroupResponse> groups;
 
   public static YearGroupDetailsResponse fromEntity(Year year) {
+    if (year == null) return null;
     return YearGroupDetailsResponse.builder()
+        .id(year.getId())
         .groups(GroupResponse.fromEntities(year.getGroups()))
         .year(year.getYear())
         .build();

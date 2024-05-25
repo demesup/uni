@@ -18,8 +18,9 @@ public class GroupRequest {
   @NotEmpty
   String code;
   @NotEmpty
-  Long facultyId;
-  @NotEmpty
   Long yearId;
 
+  Long advisorId;
+
+  Long headId;
 }

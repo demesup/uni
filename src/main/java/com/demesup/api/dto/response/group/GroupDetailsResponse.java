@@ -1,8 +1,8 @@
 package com.demesup.api.dto.response.group;
 
-import com.demesup.api.dto.response.fac.FacultyResponse;
 import com.demesup.api.dto.response.prof.ProfessorResponse;
 import com.demesup.api.dto.response.stud.StudentResponse;
+import com.demesup.api.dto.response.year.YearFacultyDetailsResponse;
 import com.demesup.domain.Group;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -17,15 +17,13 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class GroupDetailsResponse extends GroupResponse {
-  FacultyResponse faculty;
   List<StudentResponse> students;
 
   public static GroupDetailsResponse fromEntity(Group group) {
-    return GroupDetailsResponse.builder()
-        .year(group.getYear().getYear().toString())
-        .head(StudentResponse.fromEntity(group.getHead()))
+    if (group == null) return null;
+    return GroupDetailsResponse.builder().year(YearFacultyDetailsResponse.fromEntity(group.getYear())).code(group.getCode())
+        .head(StudentResponse.fromEntity(group.getHead())).id(group.getId())
         .advisor(ProfessorResponse.fromEntity(group.getAdvisor()))
-        .faculty(FacultyResponse.fromEntity(group.getFaculty()))
         .students(StudentResponse.fromEntities(group.getStudents()))
         .build();
   }
