@@ -1,0 +1,72 @@
+databaseChangeLog:
+  - changeSet:
+      id: dean-column
+      author: demesup
+      changes:
+        - addColumn:
+            tableName: faculties
+            columns:
+              - column:
+                  name: dean_id
+                  type: BIGINT
+                  constraints:
+                    nullable: true
+
+  - changeSet:
+      id: vice-dean-column
+      author: demesup
+      changes:
+        - addColumn:
+            tableName: professors
+            columns:
+              - column:
+                  name: vice_dean_faculty_id
+                  type: BIGINT
+                  constraints:
+                    nullable: true
+
+  - changeSet:
+      id: fk_faculties_dean
+      author: demesup
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: faculties
+            baseColumnNames: dean_id
+            constraintName: fk_faculties_dean
+            referencedTableName: professors
+            referencedColumnNames: id
+            onDelete: SET NULL
+
+  - changeSet:
+      id: fk_professors_vice_dean
+      author: demesup
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: professors
+            baseColumnNames: vice_dean_faculty_id
+            constraintName: fk_professors_vice_dean
+            referencedTableName: faculties
+            referencedColumnNames: id
+            onDelete: SET NULL
+
+  - changeSet:
+      id: idx_faculties_dean
+      author: demesup
+      changes:
+        - createIndex:
+            indexName: idx_faculties_dean
+            tableName: faculties
+            columns:
+              - column:
+                  name: dean_id
+
+  - changeSet:
+      id: idx_professors_vice_dean
+      author: demesup
+      changes:
+        - createIndex:
+            indexName: idx_professors_vice_dean
+            tableName: professors
+            columns:
+              - column:
+                  name: vice_dean_faculty_id
