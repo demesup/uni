@@ -93,4 +93,9 @@ public class ProfessorServiceImpl implements ProfessorService {
     return repository.findAllByFacultyIdAndActiveTrue(facultyId);
   }
 
+  @Override
+  public List<Professor> findAllByIds(List<Long> professorIds) {
+    return repository.findAllByIdInAndActiveTrue(professorIds);
+  }
+
 }

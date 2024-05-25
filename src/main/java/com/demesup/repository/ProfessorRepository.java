@@ -28,5 +28,5 @@ public interface ProfessorRepository extends CrudRepository<Professor, Long> {
 
   Optional<Professor> findByPhoneAndActiveTrue(String phone);
 
-  List<Professor> findAllByIdIn(List<Long> id);
+  List<Professor> findAllByIdInAndActiveTrue(List<Long> id);
 }

@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: item-subject
+      author: demesup
+      changes:
+        - addColumn:
+            tableName: items
+            columns:
+              - column:
+                  name: subject
+                  type: VARCHAR(255)

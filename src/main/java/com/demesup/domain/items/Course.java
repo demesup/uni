@@ -13,15 +13,15 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 public class Course extends ItemInfo {
   @JsonProperty
-  Year year;
+  Long yearId;
 
   @JsonProperty
-  Long professor_id;
+  Long professorId;
 
-  public static Course create(Year year, Long professor_id) {
+  public static Course create(Year year, Long professorId) {
     return Course.builder()
-        .year(year)
-        .professor_id(professor_id)
+        .yearId(year.getId())
+        .professorId(professorId)
         .build();
   }
 }

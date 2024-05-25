@@ -33,4 +33,6 @@ public interface ProfessorService {
   List<Professor> findAllViceDeans(Long facultyId);
 
   List<Professor> findAllByFaculty(Long facultyId);
+
+  List<Professor> findAllByIds(List<Long> professorIds);
 }
