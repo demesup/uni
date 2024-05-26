@@ -112,6 +112,51 @@ public class TimetableItemServiceImpl implements TimetableItemService {
     return TimetableItemResponse.fromEntity(item, LabResponse.fromEntity(group, professors));
   }
 
+  @Override
+  public TimetableResponse getSeminars(Group group) {
+    List<TimetableItemResponse> responses = new ArrayList<>();
+    List<TimetableItem> timetableItems = repository.findAll();
+
+    for (TimetableItem item : timetableItems) {
+      ItemInfo body = item.getBody();
+      if (body instanceof Seminar) {
+        handleSeminarItem((Seminar) body, item, group, responses);
+      }
+    }
+    return TimetableResponse.fromMap(mapByDay(responses));
+
+  }
+
+  @Override
+  public TimetableResponse getLabs(Group group) {
+    List<TimetableItemResponse> responses = new ArrayList<>();
+    List<TimetableItem> timetableItems = repository.findAll();
+
+    for (TimetableItem item : timetableItems) {
+      ItemInfo body = item.getBody();
+      if (body instanceof Lab) {
+        handleLabItem((Lab) body, item, group, responses);
+      }
+    }
+    return TimetableResponse.fromMap(mapByDay(responses));
+
+  }
+
+  @Override
+  public TimetableResponse getCourses(Group group) {
+    List<TimetableItemResponse> responses = new ArrayList<>();
+    List<TimetableItem> timetableItems = repository.findAll();
+
+    for (TimetableItem item : timetableItems) {
+      ItemInfo body = item.getBody();
+      if (body instanceof Course) {
+        handleCourseItem((Course) body, item, group, responses);
+      }
+    }
+    return TimetableResponse.fromMap(mapByDay(responses));
+
+  }
+
   private TimetableItem save(TimetableItem item) {
     return repository.save(item);
   }

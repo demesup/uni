@@ -4,6 +4,7 @@ import com.demesup.api.dto.response.prof.ProfessorResponse;
 import com.demesup.api.dto.response.year.YearResponse;
 import com.demesup.domain.Professor;
 import com.demesup.domain.Year;
+import com.demesup.domain.items.Course;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,6 +23,7 @@ public class CourseResponse extends ItemInfoResponse {
     return CourseResponse.builder()
         .year(YearResponse.fromEntity(year))
         .professor(ProfessorResponse.fromEntity(professor))
+        .type(Course.class.getSimpleName())
         .build();
   }
 }

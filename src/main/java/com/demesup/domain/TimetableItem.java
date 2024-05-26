@@ -93,6 +93,7 @@ public class TimetableItem {
         .day(request.getDay())
         .hour(request.getHour())
         .description(request.getDescription())
+        .duration(request.getDuration())
         .note(request.getNote())
         .frequency(request.getFrequency())
         .subject(request.getSubject())

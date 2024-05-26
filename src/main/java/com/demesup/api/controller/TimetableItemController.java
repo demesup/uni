@@ -45,6 +45,43 @@ public class TimetableItemController {
   }
 
   @Secured({"ROLE_USER", "ROLE_ADMIN", "ROLE_SUPER"})
+  @GetMapping("/seminars/{groupId}")
+  public TimetableResponse getSeminars(@PathVariable Long groupId, @AuthenticationPrincipal User user) {
+    return service.getSeminars(groupService.findById(groupId).orElseThrow(() -> new NotFoundException("Group", groupId)));
+  }
+
+  @Secured({"ROLE_USER", "ROLE_ADMIN", "ROLE_SUPER"})
+  @GetMapping("/labs/{groupId}")
+  public TimetableResponse getLabs(@PathVariable Long groupId, @AuthenticationPrincipal User user) {
+    return service.getLabs(groupService.findById(groupId).orElseThrow(() -> new NotFoundException("Group", groupId)));
+  }
+
+  @Secured({"ROLE_USER", "ROLE_ADMIN", "ROLE_SUPER"})
+  @GetMapping("/courses/{groupId}")
+  public TimetableResponse getCourses(@PathVariable Long groupId, @AuthenticationPrincipal User user) {
+    return service.getCourses(groupService.findById(groupId).orElseThrow(() -> new NotFoundException("Group", groupId)));
+  }
+
+  @Secured({"ROLE_USER", "ROLE_ADMIN", "ROLE_SUPER"})
+  @GetMapping("/seminars")
+  public TimetableResponse getSeminars(@RequestParam String code, @AuthenticationPrincipal User user) {
+    return service.getSeminars(groupService.findByCode(code).orElseThrow(() -> new NotFoundException("Group", code)));
+  }
+
+  @Secured({"ROLE_USER", "ROLE_ADMIN", "ROLE_SUPER"})
+  @GetMapping("/labs")
+  public TimetableResponse getLabs(@RequestParam String code, @AuthenticationPrincipal User user) {
+    return service.getLabs(groupService.findByCode(code).orElseThrow(() -> new NotFoundException("Group", code)));
+  }
+
+  @Secured({"ROLE_USER", "ROLE_ADMIN", "ROLE_SUPER"})
+  @GetMapping("/courses")
+  public TimetableResponse getCourses(@RequestParam String code, @AuthenticationPrincipal User user) {
+    return service.getCourses(groupService.findByCode(code).orElseThrow(() -> new NotFoundException("Group", code)));
+  }
+
+
+  @Secured({"ROLE_USER", "ROLE_ADMIN", "ROLE_SUPER"})
   @GetMapping("/{id}")
   public TimetableItemResponse get(@PathVariable Long id, @AuthenticationPrincipal User user) {
     return service.findById(id).orElseThrow(() -> new NotFoundException("Item", id));

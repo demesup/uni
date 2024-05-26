@@ -4,6 +4,7 @@ import com.demesup.api.dto.response.group.GroupResponse;
 import com.demesup.api.dto.response.prof.ProfessorResponse;
 import com.demesup.domain.Group;
 import com.demesup.domain.Professor;
+import com.demesup.domain.items.Seminar;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,6 +23,7 @@ public class SeminarResponse extends ItemInfoResponse {
     return SeminarResponse.builder()
         .group(GroupResponse.fromEntity(group))
         .professor(ProfessorResponse.fromEntity(professor))
+        .type(Seminar.class.getSimpleName())
         .build();
   }
 }

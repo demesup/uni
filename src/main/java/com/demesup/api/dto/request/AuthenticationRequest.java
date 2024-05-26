@@ -1,5 +1,6 @@
 package com.demesup.api.dto.request;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Data;
@@ -9,6 +10,7 @@ import lombok.Data;
 public class AuthenticationRequest {
 
   @NotBlank
+  @Email
   String email;
 
   @NotBlank

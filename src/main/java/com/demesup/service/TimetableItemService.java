@@ -23,4 +23,10 @@ public interface TimetableItemService {
   TimetableItemResponse createCourse(CourseRequest request, Year year, Professor professor);
 
   TimetableItemResponse createLab(LabRequest request, Group group, List<Professor> professors);
+
+  TimetableResponse getSeminars(Group group);
+
+  TimetableResponse getLabs(Group group);
+
+  TimetableResponse getCourses(Group group);
 }

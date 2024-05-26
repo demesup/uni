@@ -9,4 +9,5 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ItemInfoResponse {
+  String type;
 }
