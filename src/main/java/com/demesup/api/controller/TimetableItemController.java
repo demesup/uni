@@ -39,7 +39,7 @@ public class TimetableItemController {
 
 
   @Secured({"ROLE_USER", "ROLE_ADMIN", "ROLE_SUPER"})
-  @GetMapping("/timetable/{groupId}")
+  @GetMapping("/{groupId}")
   public TimetableResponse getTimetableStructure(@PathVariable Long groupId, @AuthenticationPrincipal User user) {
     return service.getTimetableStructure(groupService.findById(groupId).orElseThrow(() -> new NotFoundException("Group", groupId)));
   }
@@ -82,7 +82,7 @@ public class TimetableItemController {
 
 
   @Secured({"ROLE_USER", "ROLE_ADMIN", "ROLE_SUPER"})
-  @GetMapping("/{id}")
+  @GetMapping("/item/{id}")
   public TimetableItemResponse get(@PathVariable Long id, @AuthenticationPrincipal User user) {
     return service.findById(id).orElseThrow(() -> new NotFoundException("Item", id));
   }

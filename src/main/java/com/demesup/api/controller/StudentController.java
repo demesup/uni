@@ -9,6 +9,7 @@ import com.demesup.domain.User;
 import com.demesup.domain.enums.YearCode;
 import com.demesup.exception.AlreadyExistsException;
 import com.demesup.exception.NotFoundException;
+import com.demesup.repository.GroupRepository;
 import com.demesup.service.FacultyService;
 import com.demesup.service.GroupService;
 import com.demesup.service.StudentService;
@@ -36,6 +37,7 @@ public class StudentController {
   YearService yearService;
   FacultyService facultyService;
   StudentService studentService;
+  private final GroupRepository groupRepository;
 
 
   @Secured({"ROLE_USER", "ROLE_ADMIN", "ROLE_SUPER"})
@@ -87,6 +89,24 @@ public class StudentController {
         .map(StudentDetailsResponse::fromEntity)
         .orElseThrow(() -> new NotFoundException("Student", id));
   }
+
+  @Secured({"ROLE_USER", "ROLE_ADMIN"})
+  @GetMapping("/group/{id}")
+  public List<StudentResponse> getByGroup(@PathVariable Long id, @AuthenticationPrincipal User user) {
+    groupService.findById(id).orElseThrow(() -> new NotFoundException("Group", id));
+    return studentService.findAllByGroup(id)
+        .stream().map(StudentResponse::fromEntity).toList();
+  }
+
+
+  @Secured({"ROLE_USER", "ROLE_ADMIN"})
+  @GetMapping("/year/{id}")
+  public List<StudentResponse> getByYear(@PathVariable Long id, @AuthenticationPrincipal User user) {
+    yearService.findById(id).orElseThrow(() -> new NotFoundException("Year", id));
+    return studentService.findAllByYear(id)
+        .stream().map(StudentResponse::fromEntity).toList();
+  }
+
 
   @PostMapping
   @Secured({"ROLE_USER", "ROLE_ADMIN"})

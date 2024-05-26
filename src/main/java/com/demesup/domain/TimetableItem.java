@@ -37,7 +37,8 @@ public class TimetableItem {
   Boolean active = true;
 
   @Column
-  Integer duration;
+  @Builder.Default
+  Integer duration = 2;
 
   @Column
   @Enumerated(EnumType.STRING)
