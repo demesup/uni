@@ -113,7 +113,7 @@ public class StudentController {
   public StudentResponse create(@Valid @RequestBody StudentRequest request, @AuthenticationPrincipal User user) {
     log.info("Received Student registration request {}", request);
 
-    if (studentService.findByUniEmail(request.getUniEmail()).isPresent()) {
+    if (!request.getUniEmail().isEmpty() && studentService.findByUniEmail(request.getUniEmail()).isPresent()) {
       throw new AlreadyExistsException("Student", request.getUniEmail());
     }
 
