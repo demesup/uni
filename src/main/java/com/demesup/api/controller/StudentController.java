@@ -92,19 +92,19 @@ public class StudentController {
 
   @Secured({"ROLE_USER", "ROLE_ADMIN"})
   @GetMapping("/group/{id}")
-  public List<StudentResponse> getByGroup(@PathVariable Long id, @AuthenticationPrincipal User user) {
+  public List<StudentDetailsResponse> getByGroup(@PathVariable Long id, @AuthenticationPrincipal User user) {
     groupService.findById(id).orElseThrow(() -> new NotFoundException("Group", id));
     return studentService.findAllByGroup(id)
-        .stream().map(StudentResponse::fromEntity).toList();
+        .stream().map(StudentDetailsResponse::fromEntity).toList();
   }
 
 
   @Secured({"ROLE_USER", "ROLE_ADMIN"})
   @GetMapping("/year/{id}")
-  public List<StudentResponse> getByYear(@PathVariable Long id, @AuthenticationPrincipal User user) {
+  public List<StudentDetailsResponse> getByYear(@PathVariable Long id, @AuthenticationPrincipal User user) {
     yearService.findById(id).orElseThrow(() -> new NotFoundException("Year", id));
     return studentService.findAllByYear(id)
-        .stream().map(StudentResponse::fromEntity).toList();
+        .stream().map(StudentDetailsResponse::fromEntity).toList();
   }
 
 
