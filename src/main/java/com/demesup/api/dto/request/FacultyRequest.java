@@ -20,4 +20,6 @@ public class FacultyRequest {
 
   @NotEmpty
   String shortName;
+
+  Long deanId;
 }
