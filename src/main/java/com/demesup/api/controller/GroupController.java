@@ -94,7 +94,17 @@ public class GroupController {
     Year year = yearService.findById(request.getYearId())
         .orElseThrow(() -> new NotFoundException("Year", request.getYearId()));
 
-    Group newGroup = groupService.create(request, year);
+    Student head = null;
+    if (request.getHeadId() != null) {
+      head = studentService.findById(request.getHeadId()).orElseThrow(() -> new NotFoundException("Student", request.getHeadId()));
+    }
+
+    Professor professor = null;
+    if (request.getAdvisorId() != null) {
+      professor = professorService.findById(request.getHeadId()).orElseThrow(() -> new NotFoundException("Professor", request.getHeadId()));
+    }
+
+    Group newGroup = groupService.create(request, year, head, professor);
     log.info("Created new Group");
     return GroupResponse.fromEntity(newGroup);
   }

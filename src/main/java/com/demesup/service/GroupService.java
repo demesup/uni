@@ -15,7 +15,7 @@ public interface GroupService {
 
   Optional<Group> findById(Long id);
 
-  Group create(GroupRequest request, Year year);
+  Group create(GroupRequest request, Year year, Student head, Professor professor);
 
   Group update(Group group, GroupRequest request, Year year, Professor advisor, Student head);
 

@@ -17,7 +17,6 @@ public class YearDetailsResponse extends YearResponse {
   FacultyResponse faculty;
   List<GroupResponse> groups;
 
-
   public static YearDetailsResponse fromEntity(Year year) {
     if (year == null) return null;
     return YearDetailsResponse.builder()

@@ -54,13 +54,13 @@ public class Year {
 
   public static Year create(YearRequest request, Faculty faculty) {
     return Year.builder()
-        .year(request.getYearCode())
+        .year(request.getYear())
         .faculty(faculty)
         .build();
   }
 
   public void update(YearRequest request, Faculty faculty) {
-    this.year = request.getYearCode();
+    this.year = request.getYear();
     this.faculty = faculty;
   }
 

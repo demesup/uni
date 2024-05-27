@@ -157,6 +157,20 @@ public class TimetableItemServiceImpl implements TimetableItemService {
 
   }
 
+  @Override
+  public TimetableResponse getTimetableStructure(Year year) {
+    List<TimetableItemResponse> responses = new ArrayList<>();
+    List<TimetableItem> timetableItems = repository.findAll();
+
+    for (TimetableItem item : timetableItems) {
+      ItemInfo body = item.getBody();
+      if (body instanceof Course) {
+        handleCourseItem((Course) body, item, year, responses);
+      }
+    }
+    return TimetableResponse.fromMap(mapByDay(responses));
+  }
+
   private TimetableItem save(TimetableItem item) {
     return repository.save(item);
   }
@@ -187,6 +201,16 @@ public class TimetableItemServiceImpl implements TimetableItemService {
         });
       }
     });
+  }
+
+  private void handleCourseItem(Course course, TimetableItem item, Year year, List<TimetableItemResponse> responses) {
+    if (year.getId().equals(course.getYearId())) {
+      professorService.findById(course.getProfessorId()).ifPresent(professor -> {
+        responses.add(
+            TimetableItemResponse.fromEntity(item, CourseResponse.fromEntity(year, professor))
+        );
+      });
+    }
   }
 
   private void handleLabItem(Lab lab, TimetableItem item, Group group, List<TimetableItemResponse> responses) {

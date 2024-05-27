@@ -29,4 +29,6 @@ public interface TimetableItemService {
   TimetableResponse getLabs(Group group);
 
   TimetableResponse getCourses(Group group);
+
+  TimetableResponse getTimetableStructure(Year year);
 }

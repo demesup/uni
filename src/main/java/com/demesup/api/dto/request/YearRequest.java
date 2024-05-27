@@ -21,5 +21,5 @@ public class YearRequest {
   Long facultyId;
 
   @NotNull
-  YearCode yearCode;
+  YearCode year;
 }

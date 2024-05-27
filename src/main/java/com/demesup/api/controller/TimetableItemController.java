@@ -45,6 +45,12 @@ public class TimetableItemController {
   }
 
   @Secured({"ROLE_USER", "ROLE_ADMIN", "ROLE_SUPER"})
+  @GetMapping("/year/{yearId}")
+  public TimetableResponse getTimetableStructureByYear(@PathVariable Long yearId, @AuthenticationPrincipal User user) {
+    return service.getTimetableStructure(yearService.findById(yearId).orElseThrow(() -> new NotFoundException("Year", yearId)));
+  }
+
+  @Secured({"ROLE_USER", "ROLE_ADMIN", "ROLE_SUPER"})
   @GetMapping("/seminars/{groupId}")
   public TimetableResponse getSeminars(@PathVariable Long groupId, @AuthenticationPrincipal User user) {
     return service.getSeminars(groupService.findById(groupId).orElseThrow(() -> new NotFoundException("Group", groupId)));

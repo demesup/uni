@@ -65,7 +65,7 @@ public class YearController {
   public YearResponse create(@Valid @RequestBody YearRequest request, @AuthenticationPrincipal User user) {
     log.info("Received Year registration request {}", request);
 
-    if (yearService.findIdByYearAndFacultyId(request.getYearCode(), request.getFacultyId())
+    if (yearService.findIdByYearAndFacultyId(request.getYear(), request.getFacultyId())
         .isPresent()) {
       throw new AlreadyExistsException("Year", "year code inside faculty");
     }
@@ -82,7 +82,7 @@ public class YearController {
   @PutMapping("{id}")
   public YearResponse update(@PathVariable Long id, @RequestBody @Valid YearRequest request,
                              @AuthenticationPrincipal User user) {
-    Optional<Long> idByYearAndFacultyId = yearService.findIdByYearAndFacultyId(request.getYearCode(), request.getFacultyId());
+    Optional<Long> idByYearAndFacultyId = yearService.findIdByYearAndFacultyId(request.getYear(), request.getFacultyId());
     if (idByYearAndFacultyId.isPresent() && !idByYearAndFacultyId.get().equals(id)) {
       throw new AlreadyExistsException("Year", "year code inside faculty");
     }

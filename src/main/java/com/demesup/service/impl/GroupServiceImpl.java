@@ -41,8 +41,8 @@ public class GroupServiceImpl implements GroupService {
   }
 
   @Override
-  public Group create(GroupRequest request, Year year) {
-    return save(Group.create(request, year, null, null));
+  public Group create(GroupRequest request, Year year, Student head, Professor professor) {
+    return save(Group.create(request, year, head, professor));
   }
 
   @Override
