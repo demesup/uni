@@ -107,6 +107,14 @@ public class StudentController {
         .stream().map(StudentDetailsResponse::fromEntity).toList();
   }
 
+  @Secured({"ROLE_USER", "ROLE_ADMIN"})
+  @GetMapping("/faculty/{id}")
+  public List<StudentDetailsResponse> getByFaculty(@PathVariable Long id, @AuthenticationPrincipal User user) {
+    facultyService.findById(id).orElseThrow(() -> new NotFoundException("Faculty", id));
+    return studentService.findAllByFaculty(id)
+        .stream().map(StudentDetailsResponse::fromEntity).toList();
+  }
+
 
   @PostMapping
   @Secured({"ROLE_USER", "ROLE_ADMIN"})

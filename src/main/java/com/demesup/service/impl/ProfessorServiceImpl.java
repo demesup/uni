@@ -85,7 +85,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 
   @Override
   public List<Professor> findAllViceDeans(Long facultyId) {
-    return repository.findAllByActiveTrueAndViceDeanOfNotNullAndFacultyId(facultyId);
+    return repository.findAllViceDeans(facultyId);
   }
 
   @Override

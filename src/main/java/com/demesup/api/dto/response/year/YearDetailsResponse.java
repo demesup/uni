@@ -20,7 +20,7 @@ public class YearDetailsResponse extends YearResponse {
   public static YearDetailsResponse fromEntity(Year year) {
     if (year == null) return null;
     return YearDetailsResponse.builder()
-        .year(year.getYear())
+        .year(year.getYear().getDescription())
         .id(year.getId())
         .faculty(FacultyResponse.fromEntity(year.getFaculty()))
         .groups(GroupResponse.fromEntities(year.getGroups()))

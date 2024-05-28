@@ -37,7 +37,9 @@ public class YearController {
   @GetMapping
   public List<YearDetailsResponse> getAll(@AuthenticationPrincipal User user) {
 
-    return yearService.findAll().stream()
+    List<Year> all = yearService.findAll();
+    log.warn(all.toString());
+    return all.stream()
         .map(YearDetailsResponse::fromEntity)
         .toList();
   }

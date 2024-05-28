@@ -22,7 +22,7 @@ public class YearGroupDetailsResponse extends YearResponse {
     return YearGroupDetailsResponse.builder()
         .id(year.getId())
         .groups(GroupResponse.fromEntities(year.getGroups()))
-        .year(year.getYear())
+        .year(year.getYear().getDescription())
         .build();
   }
 }

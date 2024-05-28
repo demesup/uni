@@ -16,6 +16,8 @@ import java.util.Optional;
 public interface TimetableItemService {
   TimetableResponse getTimetableStructure(Group group);
 
+  TimetableResponse getTimetableStructureByCode(String code);
+
   Optional<TimetableItemResponse> findById(Long id);
 
   TimetableItemResponse createSeminar(SeminarRequest request, Group group, Professor professor);

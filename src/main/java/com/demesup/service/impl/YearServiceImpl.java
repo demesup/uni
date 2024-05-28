@@ -25,7 +25,7 @@ public class YearServiceImpl implements YearService {
 
   @Override
   public List<Year> findAll() {
-    return repository.findAll();
+    return repository.findAllByActiveTrue();
   }
 
   @Override

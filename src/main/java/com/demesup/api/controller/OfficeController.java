@@ -24,7 +24,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 @Slf4j
 @RestController
-@RequestMapping("/office")
+@RequestMapping("/offices")
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class OfficeController {

@@ -3,6 +3,8 @@ package com.demesup.service.impl;
 import com.demesup.api.dto.request.CourseRequest;
 import com.demesup.api.dto.request.LabRequest;
 import com.demesup.api.dto.request.SeminarRequest;
+import com.demesup.api.dto.response.group.GroupDetailsResponse;
+import com.demesup.api.dto.response.group.GroupResponse;
 import com.demesup.api.dto.response.item.*;
 import com.demesup.domain.Group;
 import com.demesup.domain.Professor;
@@ -21,6 +23,8 @@ import com.demesup.service.TimetableItemService;
 import com.demesup.service.YearService;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -31,6 +35,7 @@ import static lombok.AccessLevel.PRIVATE;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class TimetableItemServiceImpl implements TimetableItemService {
+  private static final Logger log = LoggerFactory.getLogger(TimetableItemServiceImpl.class);
   TimetableItemRepository repository;
   YearService yearService;
   ProfessorService professorService;
@@ -42,6 +47,34 @@ public class TimetableItemServiceImpl implements TimetableItemService {
     List<TimetableItem> timetableItems = repository.findAll();
 
     for (TimetableItem item : timetableItems) {
+      System.out.println("---- " + item);
+      ItemInfo body = item.getBody();
+      if (body instanceof Course) {
+        handleCourseItem((Course) body, item, group, responses);
+      } else if (body instanceof Lab) {
+        handleLabItem((Lab) body, item, group, responses);
+      } else if (body instanceof Seminar) {
+        handleSeminarItem((Seminar) body, item, group, responses);
+      } else {
+        throw new NotFoundException("Class not found", "");
+      }
+    }
+    return TimetableResponse.fromMap(mapByDay(responses));
+  }
+
+  @Override
+  public TimetableResponse getTimetableStructureByCode(String code) {
+    Optional<Group> groupO = groupService.findByCode(code);
+    if (groupO.isEmpty()) {
+      return
+          TimetableResponse.builder().timetable(new HashMap<>()).build();
+    }
+    Group group = groupO.get();
+    List<TimetableItemResponse> responses = new ArrayList<>();
+    List<TimetableItem> timetableItems = repository.findAll();
+
+    for (TimetableItem item : timetableItems) {
+      System.out.println("---- " + item);
       ItemInfo body = item.getBody();
       if (body instanceof Course) {
         handleCourseItem((Course) body, item, group, responses);

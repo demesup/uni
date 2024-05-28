@@ -19,7 +19,8 @@ public interface ProfessorRepository extends CrudRepository<Professor, Long> {
 
   List<Professor> findAllByActiveTrueAndViceDeanOfNotNull();
 
-  List<Professor> findAllByActiveTrueAndViceDeanOfNotNullAndFacultyId(Long faculty_id);
+  @Query("SELECT p FROM Professor p WHERE p.viceDeanOf.id = :faculty_id AND p.active = true")
+  List<Professor> findAllViceDeans(Long faculty_id);
 
 
   Optional<Professor> findByIdAndActiveTrue(Long id);

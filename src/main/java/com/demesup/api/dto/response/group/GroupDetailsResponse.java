@@ -12,7 +12,6 @@ import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
-@Data
 @SuperBuilder
 @EqualsAndHashCode(callSuper = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)

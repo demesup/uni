@@ -20,7 +20,7 @@ public class YearFacultyDetailsResponse extends YearResponse {
     return YearFacultyDetailsResponse.builder()
         .id(year.getId())
         .faculty(FacultyResponse.fromEntity(year.getFaculty()))
-        .year(year.getYear())
+        .year(year.getYear().getDescription())
         .build();
   }
 }

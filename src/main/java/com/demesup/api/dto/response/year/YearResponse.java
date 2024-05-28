@@ -12,12 +12,12 @@ import lombok.experimental.SuperBuilder;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class YearResponse {
   Long id;
-  YearCode year;
+  String year;
 
   public static YearResponse fromEntity(Year year) {
     if (year == null) return null;
     return YearResponse.builder()
-        .year(year.getYear())
+        .year(year.getYear().getDescription())
         .id(year.getId())
         .build();
   }

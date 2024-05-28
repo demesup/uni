@@ -12,8 +12,10 @@ import java.util.Optional;
 @Repository
 public interface YearRepository extends CrudRepository<Year, Long> {
   @Override
-  @Query("SELECT y from Year y  where y.active = true")
+  @Query("SELECT y from Year y where y.active = true")
   List<Year> findAll();
+
+  List<Year> findAllByActiveTrue();
 
   @Override
   @Query("SELECT y from Year y  where y.id = :id AND y.active = true")
